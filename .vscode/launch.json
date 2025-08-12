@@ -2,40 +2,64 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug SmythOS Backend",
       "type": "node",
       "request": "launch",
-      "name": "SmythOS UI Backend",
-      "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "cd ${workspaceFolder}/packages/app && npm run bundle:backend",
       "program": "${workspaceFolder}/packages/app/dist/server/index.js",
-      "outFiles": ["${workspaceFolder}/packages/app/dist/server/**/*.js"],
-      "sourceMap": true,
-      "outputCapture": "std"
-    },
-
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "SmythOS Middleware",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/packages/middleware/dist/index.js",
-      "preLaunchTask": "npm: build",
-      "outFiles": ["${workspaceFolder}/packages/middleware/dist/**/*.js"],
-      "sourceMaps": true,
-      "env": {},
-      "outputCapture": "std"
-    },
-    {
-      "type": "node",
-      "name": "Run standalone .ts script using node -r esbuild-register",
-      "request": "launch",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeArgs": ["-r", "esbuild-register"],
-      "program": "${file}",
-      "sourceMaps": true,
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/packages/app",
+      "env": {
+        "NODE_ENV": "development"
+      },
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/packages/app/dist/**/*.js"],
+      "preLaunchTask": "build-backend",
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true,
+      "runtimeArgs": ["--enable-source-maps"]
+    },
+    {
+      "name": "Debug SmythOS Backend (No Build)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/app/dist/server/index.js",
+      "cwd": "${workspaceFolder}/packages/app",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/packages/app/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true,
+      "runtimeArgs": ["--enable-source-maps"]
+    },
+    {
+      "name": "Debug SmythOS Backend (TypeScript)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/app/src/backend/index.ts",
+      "cwd": "${workspaceFolder}/packages/app",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--loader", "ts-node/esm", "--enable-source-maps"],
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true
+    },
+    {
+      "name": "Attach to SmythOS Backend",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "localRoot": "${workspaceFolder}/packages/app",
+      "remoteRoot": "${workspaceFolder}/packages/app",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/packages/app/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
