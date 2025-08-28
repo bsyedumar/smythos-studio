@@ -188,6 +188,11 @@ export class Agent extends EventEmitter {
       this.configureEmbodimentsStates(result.id);
     }
     if (result.success) {
+      // For new agents, trigger asynchronous avatar generation if avatarStatus is 'pending'
+      if (this.isNewAgent && result.avatarStatus === 'pending') {
+        this.generateAvatarAsynchronously(result.id);
+      }
+
       // Backend returns the avatar, when the first avatar is created
       if (result.avatar) {
         // Trigger the event to update the avatar, it will work if the agent card is rendered
@@ -527,6 +532,38 @@ export class Agent extends EventEmitter {
     } catch (error) {
       // Log error but do not block the main flow
       console.error('Error ensuring default agent settings:', error);
+    }
+  }
+
+  /**
+   * Generate avatar asynchronously for new agents
+   * This method is called after agent creation to avoid blocking the main flow
+   */
+  private async generateAvatarAsynchronously(agentId: string): Promise<void> {
+    try {
+      // Call the existing avatar generation endpoint
+      const response = await fetch(
+        `/api/page/agent_settings/ai-agent/${agentId}/avatar/auto-generate`,
+        {
+          method: 'POST',
+        },
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success && result.url) {
+          // Trigger the event to update the avatar
+          if (window.workspace?.agent) {
+            window.workspace.agent.emit('AvatarUpdated', result.url);
+          }
+
+          // Save the avatar to local storage
+          window.sessionStorage.setItem(`agent-avatar-${agentId}`, result.url);
+        }
+      }
+    } catch (error) {
+      console.error('Error generating avatar asynchronously:', error);
+      // Don't throw error as this is a background operation
     }
   }
 }
