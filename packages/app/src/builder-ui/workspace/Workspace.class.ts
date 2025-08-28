@@ -721,7 +721,29 @@ export class Workspace extends EventEmitter {
     updateBuilderTopbarAgentName(name);
     updateBuilderTopbarAgentAvatar(name);
 
+    // Register event listener for avatar updates
+    this.agent.addEventListener('AvatarUpdated', (avatarUrl: string) => {
+      this.updateTopbarAvatar(avatarUrl);
+    });
+
     this.emit('agentUpdated', this.agent);
+  }
+
+  /**
+   * Update the topbar avatar image when avatar is generated
+   */
+  private updateTopbarAvatar(avatarUrl: string): void {
+    const topbarAvatar = document.getElementById('agent-avatar') as HTMLImageElement;
+    if (topbarAvatar) {
+      topbarAvatar.src = avatarUrl;
+      topbarAvatar.style.display = 'block';
+
+      // Hide the placeholder
+      const placeholders = document.querySelectorAll('.agent-avatar-placeholder-topbar');
+      placeholders.forEach((placeholder) => {
+        (placeholder as HTMLElement).style.display = 'none';
+      });
+    }
   }
 
   updateAgentSaveStatus(status: string, type?: 'success' | 'alert' | 'info' | 'progress') {
