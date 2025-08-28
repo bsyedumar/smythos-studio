@@ -10,7 +10,7 @@ const sizes = {
 };
 
 interface AgentAvatarProps {
-  src: string;
+  src?: string; // Make src optional to handle placeholder case
   alt: string;
   status?: string;
   border?: string;
@@ -20,8 +20,6 @@ interface AgentAvatarProps {
   showTextAsFallBack?: boolean;
   hoverChildren?: React.ReactNode;
 }
-
-
 
 const AgentAvatar: React.FC<AgentAvatarProps> = ({
   src,
@@ -36,6 +34,11 @@ const AgentAvatar: React.FC<AgentAvatarProps> = ({
 }) => {
   const [showText, setShowText] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Default placeholder avatar when no src is provided
+  const defaultAvatarSrc = '/img/use_default_cropped.svg';
+  const avatarSrc = src || defaultAvatarSrc;
+
   return (
     <div
       onMouseEnter={() => {
@@ -52,12 +55,12 @@ const AgentAvatar: React.FC<AgentAvatarProps> = ({
           showText && 'hidden',
           border,
         )}
-        src={src}
+        src={avatarSrc}
         alt={alt}
         onError={(e: any) => {
           console.log('Image error');
           setShowText(showTextAsFallBack);
-          e.target.src = '/img/use_default_cropped.svg';
+          e.target.src = defaultAvatarSrc;
         }}
       />
       {showText && (
