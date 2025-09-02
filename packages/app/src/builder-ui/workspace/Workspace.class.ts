@@ -403,7 +403,10 @@ export class Workspace extends EventEmitter {
     })
       .then(async (response) => {
         if (!response.ok) {
-          console.error('[Workspace.getOAuthConnections] Error fetching OAuth connections:', response.status);
+          console.error(
+            '[Workspace.getOAuthConnections] Error fetching OAuth connections:',
+            response.status,
+          );
           throw new Error(`Failed to fetch OAuth connections: ${response.status}`);
         }
         const data = await response.json();
@@ -467,7 +470,7 @@ export class Workspace extends EventEmitter {
     if (sourceBR.right > targetBR.left) {
       const cornerRadius =
         sourceComponentBR.left - targetComponentBR.left > 100 &&
-          sourceComponentBR.top - targetComponentBR.bottom > 100
+        sourceComponentBR.top - targetComponentBR.bottom > 100
           ? 80
           : 30;
 
@@ -803,29 +806,7 @@ export class Workspace extends EventEmitter {
     updateBuilderTopbarAgentName(name);
     updateBuilderTopbarAgentAvatar(name);
 
-    // Register event listener for avatar updates
-    this.agent.addEventListener('AvatarUpdated', (avatarUrl: string) => {
-      this.updateTopbarAvatar(avatarUrl);
-    });
-
     this.emit('agentUpdated', this.agent);
-  }
-
-  /**
-   * Update the topbar avatar image when avatar is generated
-   */
-  private updateTopbarAvatar(avatarUrl: string): void {
-    const topbarAvatar = document.getElementById('agent-avatar') as HTMLImageElement;
-    if (topbarAvatar) {
-      topbarAvatar.src = avatarUrl;
-      topbarAvatar.style.display = 'block';
-
-      // Hide the placeholder
-      const placeholders = document.querySelectorAll('.agent-avatar-placeholder-topbar');
-      placeholders.forEach((placeholder) => {
-        (placeholder as HTMLElement).style.display = 'none';
-      });
-    }
   }
 
   updateAgentSaveStatus(status: string, type?: 'success' | 'alert' | 'info' | 'progress') {
@@ -990,7 +971,7 @@ export class Workspace extends EventEmitter {
         smoothScroll: true,
         duration: 300,
         easing: 'ease-out',
-        handleStartEvent(e) { },
+        handleStartEvent(e) {},
       });
 
       const parent = zoom.parentElement;
@@ -1196,7 +1177,7 @@ export class Workspace extends EventEmitter {
     components.forEach((component) => {
       try {
         this.componentTemplates[component.id] = JSON.parse(component.data);
-      } catch (error) { }
+      } catch (error) {}
     });
   }
   private async initServerData() {
