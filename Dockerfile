@@ -33,15 +33,9 @@ RUN pnpm install
 # Build all packages
 RUN pnpm run build
 
-# Patch the app to bind to 0.0.0.0 instead of localhost
-# WORKDIR /app/packages/app
-# RUN sed -i 's/listen(PORT, "localhost",/listen(PORT, process.env.HOST || "0.0.0.0",/g' dist/server/index.js
-
-
 
 # Generate Prisma client for Alpine Linux with correct binary target
 WORKDIR /app/packages/middleware
-# RUN PRISMA_CLI_BINARY_TARGETS="linux-musl-openssl-3.0.x" pnpm run prisma:generate
 RUN pnpm run prisma:generate
 
 RUN mkdir -p /home/node/smythos-data && echo '{}' > /home/node/smythos-data/vault.json

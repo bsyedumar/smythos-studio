@@ -2,5 +2,5 @@
     "watch": ["src", "package.json"],
     "ext": "ts",
     "ignore": ["src/**/*.spec.ts"],
-    "exec": "npm run build && node -r esbuild-register dist/index.js"
+    "exec": "npm run build:dev && node -r esbuild-register dist/index.js"
 }
