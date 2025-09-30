@@ -28,7 +28,9 @@ RUN npm install -g pnpm@10.12.2
 COPY packages/ ./packages/  
 
 # Install dependencies for all packages
-RUN pnpm install
+RUN pnpm install --frozen-lockfile && \
+    pnpm store prune && \
+    rm -rf /root/.pnpm-store /root/.cache /root/.npm /tmp/*
 
 # Build all packages
 RUN pnpm run build

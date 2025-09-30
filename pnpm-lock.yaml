@@ -342,6 +342,9 @@ importers:
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.0
         version: 3.10.2(vite@6.3.5(@types/node@20.19.4)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
       concurrently:
         specifier: ^8.2.1
         version: 8.2.2
@@ -422,7 +425,7 @@ importers:
         version: 5.22.0(prisma@5.22.0)
       '@smythos/sre':
         specifier: ^1.5.74
-        version: 1.5.74(bufferutil@4.0.9)(encoding@0.1.13)(ws@8.18.3(bufferutil@4.0.9))(zod@3.22.4)
+        version: 1.5.74(bufferutil@4.0.9)(encoding@0.1.13)(ws@8.18.3(bufferutil@4.0.9))(zod@3.25.76)
       axios:
         specifier: ^1.4.0
         version: 1.10.0
@@ -3910,6 +3913,13 @@ packages:
     engines: {node: '>= 4.5.0'}
     hasBin: true
 
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -5200,6 +5210,9 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
+  fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
+
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
@@ -6474,6 +6487,10 @@ packages:
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+
+  normalize-range@0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
   normalize-url@6.1.0:
@@ -11882,65 +11899,6 @@ snapshots:
       '@smithy/types': 4.3.1
       tslib: 2.8.1
 
-  '@smythos/sre@1.5.74(bufferutil@4.0.9)(encoding@0.1.13)(ws@8.18.3(bufferutil@4.0.9))(zod@3.22.4)':
-    dependencies:
-      '@anthropic-ai/sdk': 0.56.0
-      '@aws-sdk/client-bedrock-runtime': 3.879.0
-      '@aws-sdk/client-iam': 3.840.0
-      '@aws-sdk/client-lambda': 3.840.0
-      '@aws-sdk/client-s3': 3.842.0
-      '@aws-sdk/client-secrets-manager': 3.879.0
-      '@faker-js/faker': 9.9.0
-      '@google-cloud/vertexai': 1.10.0(encoding@0.1.13)
-      '@google/genai': 1.16.0(@modelcontextprotocol/sdk@1.17.4)(bufferutil@4.0.9)(encoding@0.1.13)
-      '@google/generative-ai': 0.14.1
-      '@huggingface/inference': 2.8.1
-      '@modelcontextprotocol/sdk': 1.17.4
-      '@pinecone-database/pinecone': 3.0.3
-      '@runware/sdk-js': 1.1.44
-      '@smithy/smithy-client': 4.5.0
-      '@zilliz/milvus2-sdk-node': 2.6.0
-      acorn: 8.15.0
-      axios: 1.10.0
-      chokidar: 4.0.3
-      dayjs: 1.11.18
-      dotenv: 16.6.1
-      eventsource: 3.0.7
-      express: 4.21.2
-      file-type: 19.6.0
-      form-data: 4.0.4
-      gpt-tokenizer: 2.9.0
-      groq-sdk: 0.6.1(encoding@0.1.13)
-      image-size: 1.2.1
-      ioredis: 5.6.1
-      isbinaryfile: 5.0.6
-      joi: 17.13.3
-      js-yaml: 4.1.0
-      jsonrepair: 3.12.0
-      lodash: 4.17.21
-      mime: 4.0.7
-      mysql2: 3.14.4
-      oauth-1.0a: 2.2.6
-      openai: 5.16.0(ws@8.18.3(bufferutil@4.0.9))(zod@3.22.4)
-      p-limit: 6.2.0
-      qs: 6.14.0
-      readline-sync: 1.4.10
-      ses: 1.14.0
-      socks-proxy-agent: 8.0.5
-      winston: 3.17.0
-      winston-transport: 4.9.0
-      xxhashjs: 0.2.2
-      zip-lib: 1.1.2
-    transitivePeerDependencies:
-      - aws-crt
-      - bufferutil
-      - debug
-      - encoding
-      - supports-color
-      - utf-8-validate
-      - ws
-      - zod
-
   '@smythos/sre@1.5.74(bufferutil@4.0.9)(encoding@0.1.13)(ws@8.18.3(bufferutil@4.0.9))(zod@3.25.76)':
     dependencies:
       '@anthropic-ai/sdk': 0.56.0
@@ -12885,6 +12843,16 @@ snapshots:
   asynckit@0.4.0: {}
 
   atob@2.1.2: {}
+
+  autoprefixer@10.4.21(postcss@8.5.6):
+    dependencies:
+      browserslist: 4.25.1
+      caniuse-lite: 1.0.30001727
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.1.1
+      postcss: 8.5.6
+      postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
     dependencies:
@@ -14628,6 +14596,8 @@ snapshots:
 
   forwarded@0.2.0: {}
 
+  fraction.js@4.3.7: {}
+
   fresh@0.5.2: {}
 
   fresh@2.0.0: {}
@@ -16224,6 +16194,8 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
+  normalize-range@0.1.2: {}
+
   normalize-url@6.1.0: {}
 
   npm-run-path@5.3.0:
@@ -16367,11 +16339,6 @@ snapshots:
       zod: 3.25.76
     transitivePeerDependencies:
       - encoding
-
-  openai@5.16.0(ws@8.18.3(bufferutil@4.0.9))(zod@3.22.4):
-    optionalDependencies:
-      ws: 8.18.3(bufferutil@4.0.9)
-      zod: 3.22.4
 
   openai@5.16.0(ws@8.18.3(bufferutil@4.0.9))(zod@3.25.76):
     optionalDependencies:
